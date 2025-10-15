@@ -1,0 +1,8 @@
+{
+  "rust-analyzer.cargo.features": "all",
+  "rust-analyzer.cargo.cfgs": [
+    "verify",
+    "curve25519_dalek_backend=\"serial\"",
+    "curve25519_dalek_bits=\"64\""
+  ]
+}

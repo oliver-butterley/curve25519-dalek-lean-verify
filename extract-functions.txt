@@ -1,0 +1,9 @@
+# List of functions to extract from curve25519-dalek
+# One function path per line
+# Lines starting with # are comments and will be ignored
+# Empty lines are also ignored
+
+curve25519_dalek::backend::serial::u64::field::FieldElement51::reduce
+curve25519_dalek::scalar::clamp_integer
+curve25519_dalek::backend::serial::u64::scalar::Scalar52::mul_internal
+curve25519_dalek::backend::serial::u64::scalar::Scalar52::square_internal

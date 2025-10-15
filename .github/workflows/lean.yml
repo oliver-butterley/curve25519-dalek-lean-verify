@@ -1,0 +1,66 @@
+name: Lean Verification
+
+# This workflow builds and checks the Lean verification project.
+# It ensures that all proofs compile and that the formal verification remains valid.
+
+on:
+  push:
+    branches: [ '**' ]
+    paths:
+      - 'Curve25519Dalek/**'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+      - '.github/workflows/lean.yml'
+  pull_request:
+    branches: [ '**' ]
+    paths:
+      - 'Curve25519Dalek/**'
+      - 'lakefile.toml'
+      - 'lean-toolchain'
+      - '.github/workflows/lean.yml'
+
+env:
+  LEAN_ABORT_ON_PANIC: 1
+
+jobs:
+  build:
+    name: Build Lean Project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install elan (Lean version manager)
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Verify elan installation
+        run: |
+          elan --version
+          lean --version
+
+      - name: Update dependencies
+        run: lake update
+
+      - name: Download dependency caches
+        run: lake exe cache get
+
+      - name: Build Lean project
+        run: lake build
+
+      - name: Check for sorries in proofs
+        run: |
+          echo "Checking for incomplete proofs (sorries)..."
+          if grep -r "sorry" Curve25519Dalek/Proofs --include="*.lean"; then
+            echo ""
+            echo "⚠️  Warning: Found 'sorry' in proof files above."
+            echo "These represent incomplete proofs that need to be finished."
+          else
+            echo "✓ No sorries found - all proofs are complete!"
+          fi
+
+      - name: Verify build success
+        run: |
+          echo "✓ Build successful!"

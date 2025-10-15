@@ -1,0 +1,22 @@
+# Rust
+*/target/*
+target
+Cargo.lock
+*/Cargo.lock
+build*.txt
+*~
+\#*
+.\#*
+*.swp
+*.orig
+*.bak
+*.s
+
+# Lean
+.lake
+
+# Repo specific
+/aeneas
+*.llbc
+.logs
+
