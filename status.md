@@ -13,10 +13,10 @@ This document tracks the progress of formally verifying functions from the curve
 | `identity` | [backend/serial/curve_models/mod.rs](curve25519-dalek/src/backend/serial/curve_models/mod.rs#L229-L237) | - | ☐ | ☐ |  |
 | `multiscalar_mul` | [backend/serial/scalar_mul/straus.rs](curve25519-dalek/src/backend/serial/scalar_mul/straus.rs#L1-L47) | - | ☐ | ☐ |  |
 | `mul` | [backend/serial/scalar_mul/vartime_double_base.rs](curve25519-dalek/src/backend/serial/scalar_mul/vartime_double_base.rs#L1-L15) | - | ☐ | ☐ |  |
-| `as_bytes` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L367-L369) | - | ☐ | ☐ |  |
+| `as_bytes` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L367-L369) | - | ✅ | ☐ |  |
 | `conditional_assign` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L247-L254) | - | ☐ | ☐ |  |
 | `from_bytes` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L337-L363) | - | ✅ | ☐ | Brackets required in extracted Lean |
-| `pow2k` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L460-L565) | - | ☐ | ☐ |  |
+| `pow2k` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L460-L565) | - | ✅ | ☐ |  |
 | `reduce` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L290-L323) | [Reduce.lean](Curve25519Dalek/Proofs/Backend/Serial/U64/Field/FieldElement51/Reduce.lean) | ✅ | ✅ | Verified (oliver-butterley) |
 | `square` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L561-L561) | - | ☐ | ☐ |  |
 | `square2` | [backend/serial/u64/field.rs](curve25519-dalek/src/backend/serial/u64/field.rs#L566-L570) | - | ☐ | ☐ |  |
@@ -26,9 +26,8 @@ This document tracks the progress of formally verifying functions from the curve
 | `RR` | [backend/serial/u64/constants.rs](curve25519-dalek/src/backend/serial/u64/constants.rs#L148-L154) | - | ✅ | ☐ |  |
 | `m` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L56-L58) | [M.lean](Curve25519Dalek/Proofs/Backend/Serial/U64/Scalar/M.lean) | ✅ | ✅ | Verified (oliver-butterley) |
 | `ZERO` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L62-L62) | - | ✅ | ☐ |  |
-| `add` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L159-L174) | - | ☐ | ☐ |  |
+| `add` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L159-L174) | - | ✅ | ☐ |  |
 | `conditional_add_l` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L195-L208) | - | ✅ | ☐ |  |
-| `as_bytes` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L119-L158) | - | ☐ | ☐ |  |
 | `as_montgomery` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L317-L323) | - | ✅ | ☐ |  |
 | `from_bytes` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L64-L85) | - | ✅ | ☐ | Nested loop refactored |
 | `from_bytes_wide` | [backend/serial/u64/scalar.rs](curve25519-dalek/src/backend/serial/u64/scalar.rs#L87-L116) | - | ☐ | ☐ |  |
@@ -86,17 +85,17 @@ This document tracks the progress of formally verifying functions from the curve
 | `ONE` | [scalar.rs](curve25519-dalek/src/scalar.rs#L567-L572) | - | ✅ | ☐ |  |
 | `reduce` | [scalar.rs](curve25519-dalek/src/scalar.rs#L1124-L1130) | [Reduce.lean](Curve25519Dalek/Proofs/Scalar/Scalar/Reduce.lean) | ☐ | ✏️ | NL-specs written (markus-dablander) |
 | `to_bytes` | [scalar.rs](curve25519-dalek/src/scalar.rs#L690-L693) | [ToBytes.lean](Curve25519Dalek/Proofs/Scalar/Scalar/ToBytes.lean) | ✅ | ✏️ | NL-specs written (markus-dablander) |
-| `unpack` | [scalar.rs](curve25519-dalek/src/scalar.rs#L1118-L1121) | [Unpack.lean](Curve25519Dalek/Proofs/Scalar/Scalar/Unpack.lean) | ☐ | ✏️ | NL-specs written (markus-dablander) |
+| `unpack` | [scalar.rs](curve25519-dalek/src/scalar.rs#L1118-L1121) | [Unpack.lean](Curve25519Dalek/Proofs/Scalar/Scalar/Unpack.lean) | ✅ | ✏️ | NL-specs written (markus-dablander) |
 | `ZERO` | [scalar.rs](curve25519-dalek/src/scalar.rs#L564-L564) | - | ✅ | ☐ |  |
 
 ## Summary
 
-- **Total Functions**: 82
-- **Extracted**: 24 / 82 (29%)
-- **Draft Spec**: 17 / 82 (20%)
-- **Specified**: 0 / 82 (0%)
-- **Verified**: 5 / 82 (6%)
-- **Pending**: 60 / 82 (73%)
+- **Total Functions**: 81
+- **Extracted**: 28 / 81 (34%)
+- **Draft Spec**: 17 / 81 (20%)
+- **Specified**: 0 / 81 (0%)
+- **Verified**: 5 / 81 (6%)
+- **Pending**: 59 / 81 (72%)
 
 ## Legend
 
