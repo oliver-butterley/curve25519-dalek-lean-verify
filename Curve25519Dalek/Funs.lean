@@ -10,12 +10,38 @@ set_option linter.unusedVariables false
 
 namespace curve25519_dalek
 
+/- Trait implementation: [subtle::{core::ops::bit::BitAnd<subtle::Choice, subtle::Choice> for subtle::Choice}]
+   Source: '/home/oliver/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/subtle-2.6.1/src/lib.rs', lines 159:0-159:22
+   Name pattern: [core::ops::bit::BitAnd<subtle::Choice, subtle::Choice, subtle::Choice>] -/
+@[reducible]
+def core.ops.bit.BitAndsubtleChoicesubtleChoicesubtleChoice :
+  core.ops.bit.BitAnd subtle.Choice subtle.Choice subtle.Choice := {
+  bitand := subtle.BitAndsubtleChoicesubtleChoicesubtleChoice.bitand
+}
+
 /- Trait implementation: [subtle::{core::convert::From<u8> for subtle::Choice}]
    Source: '/home/oliver/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/subtle-2.6.1/src/lib.rs', lines 236:0-236:24
    Name pattern: [core::convert::From<subtle::Choice, u8>] -/
 @[reducible]
 def core.convert.FromsubtleChoiceU8 : core.convert.From subtle.Choice U8 := {
   from_ := subtle.FromsubtleChoiceU8.from
+}
+
+/- Trait implementation: [subtle::{subtle::ConstantTimeEq for @Slice<T>}]
+   Source: '/home/oliver/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/subtle-2.6.1/src/lib.rs', lines 289:0-289:46
+   Name pattern: [subtle::ConstantTimeEq<[@T]>] -/
+@[reducible]
+noncomputable def subtle.ConstantTimeEqSlice {T : Type} (ConstantTimeEqInst :
+  subtle.ConstantTimeEq T) : subtle.ConstantTimeEq (Slice T) := {
+  ct_eq := subtle.ConstantTimeEqSlice.ct_eq ConstantTimeEqInst
+}
+
+/- Trait implementation: [subtle::{subtle::ConstantTimeEq for u8}]
+   Source: '/home/oliver/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/subtle-2.6.1/src/lib.rs', lines 346:8-346:36
+   Name pattern: [subtle::ConstantTimeEq<u8>] -/
+@[reducible]
+def subtle.ConstantTimeEqU8 : subtle.ConstantTimeEq U8 := {
+  ct_eq := subtle.ConstantTimeEqU8.ct_eq
 }
 
 /- Trait implementation: [subtle::{subtle::ConditionallySelectable for u64}]
@@ -563,6 +589,41 @@ def backend.serial.u64.field.FieldElement51.pow2k
   do
   massert (k > 0#u32)
   backend.serial.u64.field.FieldElement51.pow2k_loop k self
+
+/- [curve25519_dalek::backend::serial::u64::field::{curve25519_dalek::backend::serial::u64::field::FieldElement51}::square]:
+   Source: 'curve25519-dalek/src/backend/serial/u64/field.rs', lines 568:4-570:5 -/
+def backend.serial.u64.field.FieldElement51.square
+  (self : backend.serial.u64.field.FieldElement51) :
+  Result backend.serial.u64.field.FieldElement51
+  :=
+  backend.serial.u64.field.FieldElement51.pow2k self 1#u32
+
+/- [curve25519_dalek::backend::serial::u64::field::{curve25519_dalek::backend::serial::u64::field::FieldElement51}::square2]: loop 0:
+   Source: 'curve25519-dalek/src/backend/serial/u64/field.rs', lines 576:8-579:9 -/
+def backend.serial.u64.field.FieldElement51.square2_loop
+  (square : backend.serial.u64.field.FieldElement51) (i : Usize) :
+  Result backend.serial.u64.field.FieldElement51
+  :=
+  if i < 5#usize
+  then
+    do
+    let i1 ← Array.index_usize square i
+    let i2 ← i1 * 2#u64
+    let a ← Array.update square i i2
+    let i3 ← i + 1#usize
+    backend.serial.u64.field.FieldElement51.square2_loop a i3
+  else ok square
+partial_fixpoint
+
+/- [curve25519_dalek::backend::serial::u64::field::{curve25519_dalek::backend::serial::u64::field::FieldElement51}::square2]:
+   Source: 'curve25519-dalek/src/backend/serial/u64/field.rs', lines 573:4-582:5 -/
+def backend.serial.u64.field.FieldElement51.square2
+  (self : backend.serial.u64.field.FieldElement51) :
+  Result backend.serial.u64.field.FieldElement51
+  :=
+  do
+  let square ← backend.serial.u64.field.FieldElement51.pow2k self 1#u32
+  backend.serial.u64.field.FieldElement51.square2_loop square 0#usize
 
 /- [curve25519_dalek::backend::serial::u64::scalar::{core::ops::index::Index<usize, u64> for curve25519_dalek::backend::serial::u64::scalar::Scalar52}::index]:
    Source: 'curve25519-dalek/src/backend/serial/u64/scalar.rs', lines 43:4-45:5 -/
@@ -1267,6 +1328,35 @@ def backend.serial.u64.scalar.Scalar52.as_montgomery
   backend.serial.u64.scalar.Scalar52.montgomery_mul self
     backend.serial.u64.constants.RR
 
+/- [curve25519_dalek::backend::serial::u64::scalar::{curve25519_dalek::backend::serial::u64::scalar::Scalar52}::from_montgomery]: loop 0:
+   Source: 'curve25519-dalek/src/backend/serial/u64/scalar.rs', lines 348:8-351:9 -/
+def backend.serial.u64.scalar.Scalar52.from_montgomery_loop
+  (self : backend.serial.u64.scalar.Scalar52) (limbs : Array U128 9#usize)
+  (i : Usize) :
+  Result backend.serial.u64.scalar.Scalar52
+  :=
+  if i < 5#usize
+  then
+    do
+    let i1 ←
+      backend.serial.u64.scalar.Indexcurve25519_dalekbackendserialu64scalarScalar52UsizeU64.index
+        self i
+    let i2 ← (↑(UScalar.cast .U128 i1) : Result U128)
+    let limbs1 ← Array.update limbs i i2
+    let i3 ← i + 1#usize
+    backend.serial.u64.scalar.Scalar52.from_montgomery_loop self limbs1 i3
+  else backend.serial.u64.scalar.Scalar52.montgomery_reduce limbs
+partial_fixpoint
+
+/- [curve25519_dalek::backend::serial::u64::scalar::{curve25519_dalek::backend::serial::u64::scalar::Scalar52}::from_montgomery]:
+   Source: 'curve25519-dalek/src/backend/serial/u64/scalar.rs', lines 345:4-353:5 -/
+def backend.serial.u64.scalar.Scalar52.from_montgomery
+  (self : backend.serial.u64.scalar.Scalar52) :
+  Result backend.serial.u64.scalar.Scalar52
+  :=
+  let limbs := Array.repeat 9#usize 0#u128
+  backend.serial.u64.scalar.Scalar52.from_montgomery_loop self limbs 0#usize
+
 /- [curve25519_dalek::scalar::{curve25519_dalek::scalar::Scalar}::unpack]:
    Source: 'curve25519-dalek/src/scalar.rs', lines 1119:4-1121:5 -/
 def scalar.Scalar.unpack
@@ -1309,6 +1399,43 @@ def scalar.Scalar.from_bytes_mod_order
   if 0#u8 = right_val
   then ok s
   else fail panic
+
+/- [curve25519_dalek::scalar::{subtle::ConstantTimeEq for curve25519_dalek::scalar::Scalar}::ct_eq]:
+   Source: 'curve25519-dalek/src/scalar.rs', lines 301:4-303:5 -/
+noncomputable def scalar.ConstantTimeEqcurve25519_dalekscalarScalar.ct_eq
+  (self : scalar.Scalar) (other : scalar.Scalar) : Result subtle.Choice :=
+  do
+  let s ← (↑(Array.to_slice self.bytes) : Result (Slice U8))
+  let s1 ← (↑(Array.to_slice other.bytes) : Result (Slice U8))
+  subtle.ConstantTimeEqSlice.ct_eq subtle.ConstantTimeEqU8 s s1
+
+/- [curve25519_dalek::scalar::{curve25519_dalek::scalar::Scalar}::is_canonical]:
+   Source: 'curve25519-dalek/src/scalar.rs', lines 1134:4-1136:5 -/
+noncomputable def scalar.Scalar.is_canonical (self : scalar.Scalar) : Result subtle.Choice :=
+  do
+  let s ← scalar.Scalar.reduce self
+  scalar.ConstantTimeEqcurve25519_dalekscalarScalar.ct_eq self s
+
+/- [curve25519_dalek::scalar::{curve25519_dalek::scalar::Scalar}::from_canonical_bytes]:
+   Source: 'curve25519-dalek/src/scalar.rs', lines 261:4-265:5 -/
+noncomputable def scalar.Scalar.from_canonical_bytes
+  (bytes : Array U8 32#usize) : Result (subtle.CtOption scalar.Scalar) :=
+  do
+  let i ← Array.index_usize bytes 31#usize
+  let i1 ← i >>> 7#i32
+  let high_bit_unset ← subtle.ConstantTimeEqU8.ct_eq i1 0#u8
+  let c ← scalar.Scalar.is_canonical { bytes }
+  let c1 ←
+    subtle.BitAndsubtleChoicesubtleChoicesubtleChoice.bitand high_bit_unset c
+  subtle.CtOption.new ({ bytes } : scalar.Scalar) c1
+
+/- Trait implementation: [curve25519_dalek::scalar::{subtle::ConstantTimeEq for curve25519_dalek::scalar::Scalar}]
+   Source: 'curve25519-dalek/src/scalar.rs', lines 300:0-304:1 -/
+@[reducible]
+noncomputable def subtle.ConstantTimeEqcurve25519_dalekscalarScalar : subtle.ConstantTimeEq
+  scalar.Scalar := {
+  ct_eq := scalar.ConstantTimeEqcurve25519_dalekscalarScalar.ct_eq
+}
 
 /- Trait implementation: [curve25519_dalek::scalar::{core::ops::index::Index<usize, u8> for curve25519_dalek::scalar::Scalar}]
    Source: 'curve25519-dalek/src/scalar.rs', lines 306:0-313:1 -/
