@@ -78,7 +78,7 @@ This document tracks the progress of formally verifying functions from the curve
 | `clamp_integer` | [scalar.rs](curve25519-dalek/src/scalar.rs#L1386-L1391) | [ClampInteger.lean](Curve25519Dalek/Proofs/Scalar/ClampInteger.lean) | ✅ | ✅ | Verified (oliver-butterley) |
 | `read_le_u64_into` | [scalar.rs](curve25519-dalek/src/scalar.rs#L1349-L1364) | [ReadLeU64Into.lean](Curve25519Dalek/Proofs/Scalar/ReadLeU64Into.lean) | ☐ | ✏️ | NL-specs written (markus-dablander) |
 | `as_bytes` | [scalar.rs](curve25519-dalek/src/scalar.rs#L705-L708) | [AsBytes.lean](Curve25519Dalek/Proofs/Scalar/Scalar/AsBytes.lean) | ✅ | ✅ | Verified (markus-dablander) |
-| `ct_eq` | [scalar.rs](curve25519-dalek/src/scalar.rs#L300-L304) | [CtEq.lean](Curve25519Dalek/Proofs/Scalar/Scalar/CtEq.lean) | ✅ | ✏️ | NL-specs written (markus-dablander) |
+| `ct_eq` | [scalar.rs](curve25519-dalek/src/scalar.rs#L300-L304) | [CtEq.lean](Curve25519Dalek/Proofs/Scalar/Scalar/CtEq.lean) | ✅ | 📋 | Specified (markus-dablander) |
 | `from_bytes_mod_order` | [scalar.rs](curve25519-dalek/src/scalar.rs#L236-L246) | [FromBytesModOrder.lean](Curve25519Dalek/Proofs/Scalar/Scalar/FromBytesModOrder.lean) | ✅ | 📋 | Specified (markus-dablander) |
 | `from_bytes_mod_order_wide` | [scalar.rs](curve25519-dalek/src/scalar.rs#L249-L252) | [FromBytesModOrderWide.lean](Curve25519Dalek/Proofs/Scalar/Scalar/FromBytesModOrderWide.lean) | ✅ | 📋 | Specified (markus-dablander) |
 | `from_canonical_bytes` | [scalar.rs](curve25519-dalek/src/scalar.rs#L260-L265) | [FromCanonicalBytes.lean](Curve25519Dalek/Proofs/Scalar/Scalar/FromCanonicalBytes.lean) | ✅ | 📋 | Specified (markus-dablander) |
@@ -97,8 +97,8 @@ This document tracks the progress of formally verifying functions from the curve
 
 - **Total Functions**: 86
 - **Extracted**: 51 / 86 (59%)
-- **Draft Spec**: 8 / 86 (9%)
-- **Specified**: 8 / 86 (9%)
+- **Draft Spec**: 7 / 86 (8%)
+- **Specified**: 9 / 86 (10%)
 - **Verified**: 7 / 86 (8%)
 - **Pending**: 63 / 86 (73%)
 
