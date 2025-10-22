@@ -8,6 +8,8 @@ import Curve25519Dalek.Proofs.Backend.Serial.CurveModels.ProjectivePoint.Double
 import Curve25519Dalek.Proofs.Backend.Serial.CurveModels.ProjectivePoint.Identity
 import Curve25519Dalek.Proofs.Backend.Serial.ScalarMul.Straus.Straus.MultiscalarMul
 import Curve25519Dalek.Proofs.Backend.Serial.ScalarMul.VartimeDoubleBase.Mul
+import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.Add
+import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.AddAssign
 import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.AsBytes
 import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.ConditionalAssign
 import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.FromBytes
