@@ -5,11 +5,19 @@ Authors: Oliver Butterley
 -/
 import Curve25519Dalek.Proofs.Backend.Serial.U64.Field.FieldElement51.ToBytes
 
-/-! # as_bytes
+/-! # Spec Theorem for `FieldElement51::as_bytes`
 
 Specification and proof for `FieldElement51::as_bytes`.
 
-This function converts a field element to its byte representation.
+natural language description:
+
+    • Takes a field element fe (five 51-bit limbs stored in U64 values) and
+      returns a 32-byte array b that represents the same field element value modulo p
+      in little-endian byte representation.
+
+natural language specs:
+
+    • u8x32_to_nat(b) ≡ u64x5_to_nat(fe) (mod p)
 
 Source: curve25519-dalek/src/backend/serial/u64/field.rs
 -/
