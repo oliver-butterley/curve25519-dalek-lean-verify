@@ -33,7 +33,7 @@ interface ProgressDataPoint {
   total: number
   verified: number
   specified: number
-  draftSpec: number
+  draft_spec: number
   extracted: number
 }
 
@@ -48,9 +48,9 @@ const chartData = computed(() => {
     x: dp.timestamp * 1000,
     y: dp.specified + props.dataPoints[idx].verified
   }))
-  const draftSpec = props.dataPoints.map((dp, idx) => ({
+  const draft_spec = props.dataPoints.map((dp, idx) => ({
     x: dp.timestamp * 1000,
-    y: dp.draftSpec + props.dataPoints[idx].specified + props.dataPoints[idx].verified
+    y: dp.draft_spec + props.dataPoints[idx].specified + props.dataPoints[idx].verified
   }))
   const total = props.dataPoints.map(dp => ({ x: dp.timestamp * 1000, y: dp.total }))
   const extracted = props.dataPoints.map(dp => ({ x: dp.timestamp * 1000, y: dp.extracted }))
@@ -69,7 +69,7 @@ const chartData = computed(() => {
         order: 1
       },
       {
-        label: 'Specified',
+        label: 'Spec only',
         data: specified,
         borderColor: '#fdba74',
         backgroundColor: 'rgba(253, 186, 116, 0.6)',
@@ -81,7 +81,7 @@ const chartData = computed(() => {
       },
       {
         label: 'Draft',
-        data: draftSpec,
+        data: draft_spec,
         borderColor: '#cbd5e1',
         backgroundColor: 'rgba(203, 213, 225, 0.5)',
         fill: true,
@@ -146,8 +146,8 @@ const chartOptions: ChartOptions<'line'> = {
         usePointStyle: true,
         padding: 15,
         filter: function(item, chart) {
-          // Only show Verified, Specified, and Draft in legend
-          return item.text === 'Verified' || item.text === 'Specified' || item.text === 'Draft'
+          // Only show Verified, Spec only, and Draft in legend
+          return item.text === 'Verified' || item.text === 'Spec only' || item.text === 'Draft'
         }
       }
     },
@@ -158,16 +158,16 @@ const chartOptions: ChartOptions<'line'> = {
           const value = context.parsed.y
 
           // For stacked areas, show the actual count, not cumulative
-          if (label === 'Specified' && context.dataIndex !== undefined) {
+          if (label === 'Spec only' && context.dataIndex !== undefined) {
             const verified = props.dataPoints[context.dataIndex].verified
             const specified = props.dataPoints[context.dataIndex].specified
             return `${label}: ${specified}`
           } else if (label === 'Draft' && context.dataIndex !== undefined) {
-            const draftSpec = props.dataPoints[context.dataIndex].draftSpec
-            return `${label}: ${draftSpec}`
+            const draft_spec = props.dataPoints[context.dataIndex].draft_spec
+            return `${label}: ${draft_spec}`
           } else if (label === 'Not started' && context.dataIndex !== undefined) {
             const dp = props.dataPoints[context.dataIndex]
-            const notStarted = dp.total - dp.verified - dp.specified - dp.draftSpec
+            const notStarted = dp.total - dp.verified - dp.specified - dp.draft_spec
             return `${label}: ${notStarted}`
           }
 
