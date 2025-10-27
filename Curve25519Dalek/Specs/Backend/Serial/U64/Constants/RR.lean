@@ -28,13 +28,13 @@ natural language description:
 
 natural language specs:
 
-    • Scalar52_to_Nat(RR) ≡ R² (mod L) where R = 2^260
+    • Scalar52_as_Nat(RR) ≡ R² (mod L) where R = 2^260
 -/
 
 /-- **Spec and proof concerning `backend.serial.u64.constants.RR`**:
 - The value of RR when converted to a natural number is congruent to R² modulo L
 -/
-theorem RR_spec : Scalar52_to_Nat constants.RR ≡ R ^ 2 [MOD L] := by
+theorem RR_spec : Scalar52_as_Nat constants.RR ≡ R ^ 2 [MOD L] := by
   unfold constants.RR
   decide
 
